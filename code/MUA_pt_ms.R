@@ -1,13 +1,28 @@
-################# permutation #################
-library(pacman)
-pacman::p_load(ERP, mnormt, fdrtool, tidyverse, gridExtra, crayon,dplyr,
-               boot, reshape2, ggthemes, devtools,randomForest,leaps,pROC)
-rm(list=ls())
-setwd("~/Dropbox/R_wd/NIRS_task_ML")
-dta <- readRDS("Data/AREA2_v2.Rdata")
-tp <- seq(-1,16,by=0.0958)
-#head(dta)
+######################### Permutation Test : Maximum Statistic (PT) #########################
 
+### Load Supporting Tools
+# Use pacman package to manage all the packages
+library(pacman)
+pacman::p_load(ERP, mnormt, fdrtool,
+               tidyverse, gridExtra, crayon, 
+               boot, reshape2, ggthemes, 
+               devtools,randomForest,leaps, pROC)
+
+### Read LIFG Data
+# Read the used Data, which is collected by the present NIRS experiment, in the present study
+dtaAll <- readRDS("Data/NIRSdata_LTFGLMTG.Rdata")
+# Define time point
+tp <- seq(0,16,by=0.0959)
+# Use the LIFG data only for demonstration purpose
+dta <- filter(dtaAll, Area == "LIFG") 
+
+### Explore Data
+head(dta)
+str(dta)
+dim(dta)
+
+### Start PT
+# 
 ################# generate null distribution #################
 permdta <- filter(dta, label == "LIFG")
 permnum <- 10000
