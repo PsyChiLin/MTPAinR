@@ -73,7 +73,7 @@ MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
 # Is there any significant time point ?
 cluster <- rle(MUA_Rst$pvalue < 0.05)
-max(cluster$lengths[cluster$values == TRUE])
+max(cluster$lengths[cluster$values == TRUE]) > 37
 
 
 
