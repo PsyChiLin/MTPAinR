@@ -58,6 +58,7 @@ muarst$Times <- tp
 
 ### Save the result to results folder as "MUA_Rst.Rdata"
 #saveRDS(muarst,"Results/MUA_Rst.Rdata")
+#muarst <- readRDS("Results/MUA_Rst.Rdata") # if want to read the results
 
 ### Plot the results quickly
 # plt <- melt(muarst[,-c(1:5)],id.vars = "Times")

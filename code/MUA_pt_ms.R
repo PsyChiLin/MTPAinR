@@ -55,25 +55,26 @@ for (j in 1:permnum){
   permrst[j,1] <- max(abs(rdrst[1,]), na.rm = T)
 }
 
-### Show the Maximum Statistic and the significance threshold
-maxstat <- quantile(permrst[,1], probs = 0.95)
-maxstat
-
 ###  Save the result to results folder as "MUA_pt_ms_rst.Rdata"
-#saveRDS(permrst,"Results/MUA_pt_ms_rst.Rdata")
+#saveRDS(permrst,"Results/MUA_pt_ms_rst.Rdata") # save the results
+#permrst <- readRDS("Results/MUA_pt_ms_rst.Rdata") # if want to read the results
+
+### Show the Maximum Statistic and the significance threshold
+maxstat_t <- quantile(permrst[,1], probs = 0.95)
+maxstat_t # 3.318795
 
 ### Results: Real data versus Significance threshold
 # Read MUA results
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
 # Is there any significant time point ?
-MUA_Rst$tvalue[abs(MUA_Rst$tvalue) > maxstat]
+MUA_Rst$tvalue[abs(MUA_Rst$tvalue) > maxstat_t]
 
 ### Plot the results quickly
 ## Note : the absolute t value of real data is used.
 # ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
 #     geom_line(size = 1.2)+
-#     geom_hline(yintercept = maxstat, col = "red", size = 1)+
+#     geom_hline(yintercept = maxstat_t, col = "red", size = 1)+
 #     theme_bw()+
 #     ylab("t value")+
 #     xlab("Time(s)")

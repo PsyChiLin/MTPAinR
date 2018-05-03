@@ -59,13 +59,15 @@ for (j in 1:permnum){
     permrst[j,1] <- NA
   }
 }
-### Show the max STCS and the significance threshold
-permrst[,1][is.na(permrst[,1])] <- 0
-maxstat <- quantile(permrst[,1], probs = 0.95)
-maxstat
 
 ### Save the result to results folder as "MUA_pt_ms_rst.Rdata"
 #saveRDS(permrst,"Results/MUA_pt_1dtc.Rdata")
+#permrst <- readRDS("Results/MUA_pt_1dtc.Rdata")
+
+### Show the max STCS and the significance threshold
+permrst[,1][is.na(permrst[,1])] <- 0
+maxstat_STCS <- quantile(permrst[,1], probs = 0.95)
+maxstat_STCS
 
 ### Results: Real data versus Significance threshold
 # Read MUA results
@@ -73,7 +75,7 @@ MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
 # Is there any significant time point ?
 cluster <- rle(MUA_Rst$pvalue < 0.05)
-max(cluster$lengths[cluster$values == TRUE]) > 37
+max(cluster$lengths[cluster$values == TRUE]) > maxstat_STCS
 
 
 
