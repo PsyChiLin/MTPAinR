@@ -1,4 +1,4 @@
-######################### Permutation Test : Maximum Statistic (PT) #########################
+######################### Permutation Test : Maximum Statistic (pt_ms) #########################
 
 ### Load Supporting Tools
 # Use pacman package to manage all the packages
@@ -21,30 +21,55 @@ head(dta)
 str(dta)
 dim(dta)
 
-### Start PT
-# 
-################# generate null distribution #################
-permdta <- filter(dta, label == "LIFG")
-permnum <- 10000
-permrst <- matrix(NA,permnum,2) # t stat and p value
+### Start MUA_pt_ms
+
+### Generate null distribution 
+permdta <- dta
+# Resapmpling
+permnum <- 10000 
+# Create a matrix to store Maximum Statistic: Maximum t value
+permrst <- matrix(NA,permnum,1)
 
 for (j in 1:permnum){
+  # Print to see the progress
   print(j)
-  set.seed(j) # for reproducible 
-  murst <- matrix(NA,2,178) # record the statistics at each sampled time point
-  permdta$Condition <- sample(permdta$Condition) # random shuffle "Condition"
-  for (i in 12:178){
-    testdta <- filter(permdta[,c(1,2,3,i+3)])
+  # Set seed for reproduciblility
+  set.seed(j) 
+  # Record the statistics at each sampled time point
+  rdrst <- matrix(NA,2,170)
+  # Randomly shuffle "Condition"
+  permdta$Condition <- sample(permdta$Condition) 
+  # From 1 to 167 time points
+  for (i in 4:170){
+    # Each sampled time point
+    testdta <- permdta
+    # Fit a paired T model
     test <- t.test(testdta[,4]~testdta[,3],paired = T)
-    murst[1,i] <- test$statistic
-    murst[2,i] <- test$p.value
+    # Store the t value and p value into the matrix
+    rdrst[1,i] <- test$statistic
+    rdrst[2,i] <- test$p.value
   }
-  permrst[j,1] <- max(murst[1,], na.rm = T)
-  permrst[j,2] <- min(murst[2,], na.rm = T)
+  # Store the Maximum Statistic: Maximum t value into the matrix 
+  permrst[j,1] <- max(rdrst[1,], na.rm = T)
 }
 
+
 maxstat <- quantile(permrst[,1], probs = 0.95)
-saveRDS(permrst,"Results/permutation_rst_10000.Rdata")
+
+#saveRDS(permrst,"Results/MUA_pt_ms_rst.Rdata")
+
+
+
+
+
+
+
+
+
+
+
+
+
 ################# compare with t value of real data  #################
 dta2 <- readRDS("Results/mua.Rdata")
 dta3 <- readRDS("Results/mua_plot_3.Rdata")
