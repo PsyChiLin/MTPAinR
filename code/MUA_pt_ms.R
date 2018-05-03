@@ -66,8 +66,11 @@ maxstat
 # Read MUA results
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
+# Is there any significant time point ?
+MUA_Rst$tvalue[abs(MUA_Rst$tvalue) > maxstat]
+
 ### Plot the results quickly
-# Note : the absolute t value of real data is used.
+## Note : the absolute t value of real data is used.
 # ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
 #     geom_line(size = 1.2)+
 #     geom_hline(yintercept = maxstat, col = "red", size = 1)+

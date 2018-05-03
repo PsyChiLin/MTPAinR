@@ -1,26 +1,32 @@
+######################### Multi-Time Points Analysis (MTPA) #########################
+
+### Load Supporting Tools
+# Use pacman package to manage all the packages
 library(pacman)
-pacman::p_load(ERP, mnormt, fdrtool, tidyverse, gridExtra, crayon,
-               boot, reshape2, ggthemes, devtools,randomForest,leaps,pROC)
-setwd("~/Dropbox/R_wd/NIRS_task_ML")
-dta <- readRDS("Data/AREA2_v2.Rdata")
-dta <- na.omit(dta)
-#head(dta)
-#dim(dta)
-#str(dta)
-LIFG <- filter(dta, label == "LIFG")
-LMTG <- filter(dta, label == "LMTG")
-rm(dta)
+pacman::p_load(ERP, mnormt, fdrtool,
+               tidyverse, gridExtra, crayon, 
+               boot, reshape2, ggthemes, 
+               devtools,randomForest,leaps, pROC)
+# clear the working directory
+rm(list = ls())
 
+### Read Data
+# Read the used Data, which is collected by the present NIRS experiment, in the present study
+dtaAll <- readRDS("Data/NIRSdata_LTFGLMTG.Rdata")
+# Define time point
+tp <- seq(0,16,by=0.0959)
+# LIFG data
+LIFG <- filter(dtaAll, Area == "LIFG")
+# LMTG data
+LMTG <- filter(dtaAll, Area == "LMTG")
 
-### Set parameters
+### Set parameters for MTPA
 binwidth = 3 # if change binwidth, some code need to be modified
-###
 #nt = 10001
 #ns = 7
 #mt = 1
 rcvnum <- 100
 ci <- c(0.05,0.95)
-###
 upperbound <- 178-binwidth+1
 lowerbound <- 12-binwidth+1
 rst_LIFG <- matrix(NA,6,upperbound)
@@ -133,7 +139,7 @@ temp2$Times <- seq(-1,16,by=0.0958)[-c(1:11,upperbound+1:178)]
 plotdta <- rbind(temp,temp2)
 #rm(temp,temp2,rst_LMTG,rst_LIFG,LIFG,LMTG,LIFGm,LMTGm,ceauc)
 
-saveRDS(plotdta, "Results/AREA2_v2_Rcv100_bin3_ci90_Subterm_Default.Rdata")
+#saveRDS(plotdta, "Results/AREA2_v2_Rcv100_bin3_ci90_Subterm_Default.Rdata")
 
 ggplot(data = plotdta,aes(x =Times, y = AUC, col = Area))+
         geom_line()+

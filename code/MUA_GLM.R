@@ -10,24 +10,20 @@ pacman::p_load(ERP, mnormt, fdrtool,
 # clear the working directory
 rm(list = ls())
 
-### Read LIFG Data
+### Read Data
 # Read the used Data, which is collected by the present NIRS experiment, in the present study
 dtaAll <- readRDS("Data/NIRSdata_LTFGLMTG.Rdata")
 # Define time point
 tp <- seq(0,16,by=0.0959)
-# Use the LIFG data only for demonstration purpose
-dta <- filter(dtaAll, Area == "LIFG") 
-
-### Explore Data
-head(dta)
-str(dta)
-dim(dta)
-
+# LIFG data
+LIFG <- filter(dtaAll, Area == "LIFG")
+# LMTG data
+LMTG <- filter(dtaAll, Area == "LMTG")
 
 ### Start Mass Univariate Analysis in GLM setting
 # Set parameters of GLM
 binwidth = 1
-rcvnum <- 500
+rcvnum <- 100
 ci <- c(0.05,0.95)
 upperbound <- 167-binwidth+1
 lowerbound <- 1-binwidth+1

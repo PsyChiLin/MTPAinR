@@ -28,7 +28,7 @@ dim(dta)
 ### Generate null distribution of suprathreshold cluster size (max STCS) 
 permdta <- dta
 # Resapmpling
-permnum <- 10
+permnum <- 10000
 # Create a matrix to store Maximum Statistic: max STCS
 permrst <- matrix(NA,permnum,1) 
 # for loop for null distribution
@@ -51,17 +51,29 @@ for (j in 1:permnum){
     rdrst[1,i] <- test$statistic
     rdrst[2,i] <- test$p.value
   }
-  # Store the Maximum Statistic: Maximum t value into the matrix 
-  permrst[j,1] <- max(abs(rdrst[1,]), na.rm = T)
+  # Store the Maximum Statistic: max STCS into the matrix
+  r <- rle(rdrst[2,4:170] < 0.05)
+  if (TRUE %in% r$values){
+    permrst[j,1] <- max(r$lengths[r$values == TRUE])
+  } else {
+    permrst[j,1] <- NA
+  }
 }
-
-### Show the Maximum Statistic and the significance threshold
+### Show the max STCS and the significance threshold
+permrst[,1][is.na(permrst[,1])] <- 0
 maxstat <- quantile(permrst[,1], probs = 0.95)
 maxstat
 
-###  Save the result to results folder as "MUA_pt_ms_rst.Rdata"
-#saveRDS(permrst,"Results/MUA_pt_ms_rst.Rdata")
+### Save the result to results folder as "MUA_pt_ms_rst.Rdata"
+#saveRDS(permrst,"Results/MUA_pt_1dtc.Rdata")
 
+### Results: Real data versus Significance threshold
+# Read MUA results
+MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
+
+# Is there any significant time point ?
+cluster <- rle(MUA_Rst$pvalue < 0.05)
+max(cluster$lengths[cluster$values == TRUE])
 
 
 
