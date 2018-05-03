@@ -1,28 +1,37 @@
-library(pacman)
-pacman::p_load(ERP, mnormt, fdrtool, tidyverse, gridExtra, crayon,
-               boot, reshape2, ggthemes, devtools,randomForest,leaps,pROC)
-setwd("~/Dropbox/R_wd/NIRS_task_ML")
-dta <- readRDS("Data/AREA2_v2.Rdata")
-#head(dta)
-#dim(dta)
-#str(dta)
-LIFG <- filter(dta, label == "LIFG")
-LMTG <- filter(dta, label == "LMTG")
-rm(dta)
+######################### Mass Univariate Analysis in GLM setting #########################
 
-### Set parameters
-binwidth = 1 # if change binwidth, some code need to be modified
-###
-#nt = 10001
-#ns = 7
-#mt = 1
+### Load Supporting Tools
+# Use pacman package to manage all the packages
+library(pacman)
+pacman::p_load(ERP, mnormt, fdrtool,
+               tidyverse, gridExtra, crayon, 
+               boot, reshape2, ggthemes, 
+               devtools,randomForest,leaps, pROC)
+# clear the working directory
+rm(list = ls())
+
+### Read LIFG Data
+# Read the used Data, which is collected by the present NIRS experiment, in the present study
+dtaAll <- readRDS("Data/NIRSdata_LTFGLMTG.Rdata")
+# Define time point
+tp <- seq(0,16,by=0.0959)
+# Use the LIFG data only for demonstration purpose
+dta <- filter(dtaAll, Area == "LIFG") 
+
+### Explore Data
+head(dta)
+str(dta)
+dim(dta)
+
+
+### Start Mass Univariate Analysis in GLM setting
+# Set parameters of GLM
+binwidth = 1
 rcvnum <- 500
 ci <- c(0.05,0.95)
-###
-upperbound <- 178-binwidth+1
-lowerbound <- 12-binwidth+1
+upperbound <- 167-binwidth+1
+lowerbound <- 1-binwidth+1
 rst_LIFG <- matrix(NA,6,upperbound)
-rst_LMTG <- matrix(NA,6,upperbound)
 
 # LIFG
 for (i in lowerbound:upperbound){ # change with binwidth

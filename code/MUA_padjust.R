@@ -7,6 +7,8 @@ pacman::p_load(ERP, mnormt, fdrtool,
                tidyverse, gridExtra, crayon, 
                boot, reshape2, ggthemes, 
                devtools,randomForest,leaps, pROC)
+# clear the working directory
+rm(list = ls())
 
 ### Read LIFG Data
 # Read the used Data, which is collected by the present NIRS experiment, in the present study
