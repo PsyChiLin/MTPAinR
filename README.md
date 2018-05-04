@@ -9,19 +9,29 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 In the data analysis of functional near-infrared spectroscopy (fNIRS),
 linear model frameworks, especially the mass univariate analysis (MUA),
 are often performed when researchers consider examining the difference
-between conditions at each sampled time point. However, some statistical
-issues, such as assumptions of linearity, auto-correlation and multiple
-comparison problems, influence the statistical inferences when using the
-MUA on fNIRS time course data. Therefore, we proposed a novel
-perspective, Multi-Time Points Analysis (MTPA), to discriminate signal
-differences between conditions by combining temporal information from
-multiple time points in fNIRS. In addition, the MTPA adopted the random
-forest algorithm from statistical learning domain, followed by a series
-of cross validation procedures, providing reasonable power for detecting
-significant time points and ensuring the generalizability. Using an
-fNIRS dataset, the proposed MTPA would outperform the MUA in detecting
-more time points showing significant differences between experimental
-conditions. Finally, the MTPA could also make a comparison between
+between conditions at each sampled time point.
+
+However, some statistical issues, such as assumptions of linearity,
+auto-correlation and multiple comparison problems, influence the
+statistical inferences when using the MUA on fNIRS time course data.
+
+Therefore, we proposed a novel perspective, **Multi-Time Points Analysis
+(MTPA)**, to discriminate signal differences between conditions by
+combining temporal information from multiple time points in fNIRS.
+
+The MTPA adopted the random forest algorithm from statistical learning
+domain, followed by a series of cross validation procedures, providing
+reasonable power for detecting significant time points and ensuring the
+generalizability.
+
+Using an fNIRS dataset, the proposed MTPA would outperform the MUA. As
+we seen in the following figure, the MUA with either false discovery
+rate correction or bonferroni correction could not detect any
+significant time points. The proposed MTPA can successfully detect more
+time points showing significant differences between experimental
+conditions.
+
+Furthermore, the MTPA could also easily make a comparison between
 different areas, leading to a novel viewpoint of fNIRS time course
 analysis and providing additional theoretical implications in future
 fNIRS studies.
@@ -118,9 +128,10 @@ fNIRS studies.
 [**Chi-Lin Yu**](https://github.com/PsyChiLin) : Department of
 Psychology, National Taiwan University, Taiwan<br /> [**Hsin-Chin
 Chen**](https://sites.google.com/site/hsinchinchenx/): Department of
-Psychology, National Chung Cheng University [**Zih-Yun
+Psychology, National Chung Cheng University<br /> [**Zih-Yun
 Yang**](https://sites.google.com/site/lcnlccu/people/graduate-students):
-Department of Psychology, National Chung Cheng University [**Tai-Li
+Department of Psychology, National Chung Cheng University<br />
+[**Tai-Li
 Chou**](http://www.psy.ntu.edu.tw/index.php/members/faculty/fulltime-faculty/314-chou-tai-li)
 : Department of Psychology, National Taiwan University, Taiwan<br />
 
