@@ -39,14 +39,15 @@ for (j in 1:permnum){
   set.seed(j) 
   # Record the statistics at each sampled time point
   rdrst <- matrix(NA,2,170)
-  # Randomly shuffle "Condition"
-  permdta$Condition <- sample(permdta$Condition) 
+  # Randomly shuffle "Subject and Condition"
+  permdta[,c(1:3)] <- permdta[sample(28),c(1,2,3)]
   # From 1 to 167 time points
   for (i in 4:170){
     # Each sampled time point
     testdta <- permdta[,c(1,2,3,i)]
+    colnames(testdta)[4] <- "TimeN"
     # Fit a paired T model
-    test <- t.test(testdta[,4]~testdta[,3],paired = T)
+    test <- t.test(TimeN~Condition, data = testdta, paired = T)
     # Store the t value and p value into the matrix
     rdrst[1,i] <- test$statistic
     rdrst[2,i] <- test$p.value
@@ -56,16 +57,16 @@ for (j in 1:permnum){
   if (TRUE %in% r$values){
     permrst[j,1] <- max(r$lengths[r$values == TRUE])
   } else {
-    permrst[j,1] <- NA
+    permrst[j,1] <-  0
   }
 }
 
 ### Save the result to results folder as "MUA_pt_1dtc_Rst.Rdata"
 # saveRDS(permrst,"Results/MUA_pt_1dtc_Rst.Rdata")
-# MUA_pt_1dtc_Rst <- readRDS("Results/MUA_pt_1dtc_Rst.Rdata")
+MUA_pt_1dtc_Rst <- readRDS("Results/MUA_pt_1dtc_Rst.Rdata")
 
 ### Show the max STCS and the significance threshold
-MUA_pt_1dtc_Rst[,1][is.na(MUA_pt_1dtc_Rst[,1])] <- 0
+#MUA_pt_1dtc_Rst[,1][is.na(MUA_pt_1dtc_Rst[,1])] <- 0
 maxstat_STCS <- quantile(MUA_pt_1dtc_Rst[,1], probs = 0.95)
 maxstat_STCS
 
