@@ -195,7 +195,7 @@ b3 <- readRDS("Results/MTPA_bin3_Rst.Rdata")
 b3 <-  filter(b3,Area == "LIFG")   
 b3$Bandwidth <- "Bandwidth = 3"
 Bandwith2vs3 <- rbind(b2,b3)
-SupplementaryFigure2 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
+SupplementaryFigure1 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Bandwidth),alpha = 0.3)+
   geom_line(aes(col = Bandwidth),size = 1.2)+
   theme_bw()+
@@ -208,7 +208,7 @@ SupplementaryFigure2 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
   theme(legend.position = "none",strip.background  = element_blank(),plot.title = element_text(hjust = 0.2))
 
 pdf(file = "Figures/SupplementaryFigure1.pdf", height = 4, width = 5)
-SupplementaryFigure2
+SupplementaryFigure1
 dev.off()
 
 ### Github README.Rmd Figure 1
