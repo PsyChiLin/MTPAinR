@@ -17,7 +17,7 @@ source("Functions/g_legend.R")
 dta <- readRDS("Data/NIRSdata_LTFGLMTG.Rdata")
 # Define time point
 tp <- seq(0,16,by=0.0959)
-# Re-define the Area of the condition
+# Re-define the label of the condition
 dta$Condition <- as.factor(ifelse(dta$Condition == "0","UnRelated","Related"))
 
 ### Figure 2
@@ -63,37 +63,65 @@ dev.off()
 
 ### Figure 3
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
-MUA_Rst <- melt(MUA_Rst[,c(7,8,10)],id.vars = "Times")
+MUA_Rst <- melt(MUA_Rst[,c(7,8,9,10)],id.vars = "Times")
 colnames(MUA_Rst) <- c("Times","Method","Adj_p")
-MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BONpv_log","BHpv_log"))
+MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BONpv_log","BHpv_log","BYpv_log"))
 Figure3_1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method))+
   geom_line(size = 1.2)+
+  facet_grid(~Method)+
   geom_hline(yintercept = (-2*log10(0.05)), col = "red",size = 1)+
   theme_bw()+
   ylab("-2log10(pvalue)")+
   xlab("Time(s)")+
-  scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)"),
-                      values=c("chartreuse4", "firebrick"))+
+  scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)","FDR(BY Method)"),
+                      values = c("chartreuse4", "firebrick", "gold"))+
   ggtitle("(A) p-value Corrections")+
   ylim(0, 3.5)+
-  theme(legend.position = c(0.7,0.87),plot.title = element_text(hjust = 0.1))
+  theme(#legend.position = c(0.9,0.87),
+        strip.background  = element_blank(),
+        strip.text = element_blank(),
+        plot.title = element_text(hjust = 0))
 
-MUA_pt_ms_Rst <- readRDS("Results/MUA_pt_ms_Rst.Rdata")
+MUA_pt_ms_Rst <- as.data.frame(readRDS("Results/MUA_pt_ms_Rst.Rdata"))
+colnames(MUA_pt_ms_Rst) <- "MUA_pt_ms"
 maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
+MUA_pt_1dtc_Rst <- as.data.frame(readRDS("Results/MUA_pt_1dtc_Rst.Rdata"))
+colnames(MUA_pt_1dtc_Rst) <- "MUA_pt_1dtc"
+maxstat_stcz <- quantile(MUA_pt_1dtc_Rst[,1], probs = 0.95)
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
-Figure3_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
+
+Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+  
+  geom_histogram(alpha=.5, col = "#000000", fill = "#000000" )+
+  geom_vline(aes(xintercept=maxstat_t),linetype="dashed",size=1)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))+
+  ylab("Count")+
+  xlab("Maximum t")
+
+Figure3_2_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
   geom_line(size = 1.2)+
-  geom_hline(yintercept = maxstat_t, col = "red", size = 1)+
+  geom_hline(yintercept = maxstat_t,col = "red", size = 1)+
   theme_bw()+
   ylab("Absolute t value")+
   xlab("Time(s)")+
-  ggtitle("(B) Maximum Statistics")+
   ylim(0, 3.5)+
-  theme(plot.title = element_text(hjust = 0.1))
+  theme(plot.title = element_text(hjust = 0.5))
+Figure3_2 <- grid.arrange(Figure3_2_1,Figure3_2_2,ncol = 2, 
+                          top = textGrob("(B) Maximum t-statistic",
+                                         hjust = 2))
+Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
+  geom_histogram(alpha=.7, col = "#000000", fill = "#000000" )+
+  geom_vline(aes(xintercept=maxstat_stcz),linetype="dashed",size=1)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0))+
+  ylab("Count")+
+  xlab("Maximum STCZ")+
+  ggtitle("(C) Maximum STCZ-statistic")
 
-Figure3 <- grid.arrange(Figure3_1,Figure3_2,ncol = 2)
+Figure3_23 <- grid.arrange(Figure3_2,Figure3_3,ncol = 2,widths = c(8,4))
+Figure3 <- grid.arrange(Figure3_1,Figure3_23,ncol = 1, top = "Mass Univariate Analysis")
 
-pdf(file = "Figures/Figure3.pdf", height = 5, width = 7)
+pdf(file = "Figures/Figure3.pdf", height = 8, width = 12)
 grid.draw(Figure3)
 dev.off()
 
@@ -157,25 +185,6 @@ grid.draw(Figure5)
 dev.off()
 
 ### Supplementary Figure 1
-MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
-MUA_Rst <- melt(MUA_Rst[,c(6:10)],id.vars = "Times")
-colnames(MUA_Rst) <- c("Times","Method","Adj_p")
-MUA_Rst <- filter(MUA_Rst, Method == "BYpv_log")
-SupplementaryFigure1 <- ggplot(data = MUA_Rst , aes(x = Times, y = Adj_p))+
-  geom_line(size = 1.2)+
-  geom_hline(yintercept = (-2*log10(0.05)), col = "red",size = 1)+
-  theme_bw()+
-  ylab("-2log10(pvalue)")+
-  xlab("Time(s)")+
-  ylim(0,3.5)+
-  ggtitle("Mass Univariate Analysis: FDR(BY Method)")+
-  theme(plot.title = element_text(hjust = 0.5))
-
-pdf(file = "Figures/SupplementaryFigure1.pdf", height = 5, width = 5)
-SupplementaryFigure1
-dev.off()
-
-### Supplementary Figure 2
 b2 <- readRDS("Results/MTPA_bin2_Rst.Rdata")
 b2 <-  filter(b2,Area == "LIFG")
 b2$Bandwidth <- "Bandwidth = 2"
@@ -195,7 +204,7 @@ SupplementaryFigure2 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
   scale_fill_manual(values=c("chartreuse4", "firebrick"))+
   theme(legend.position = "none",strip.background  = element_blank(),plot.title = element_text(hjust = 0.2))
 
-pdf(file = "Figures/SupplementaryFigure2.pdf", height = 4, width = 5)
+pdf(file = "Figures/SupplementaryFigure1.pdf", height = 4, width = 5)
 SupplementaryFigure2
 dev.off()
 
