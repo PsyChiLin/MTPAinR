@@ -175,36 +175,29 @@ pdf(file = "Figures/SupplementaryFigure1.pdf", height = 5, width = 5)
 SupplementaryFigure1
 dev.off()
 
+### Supplementary Figure 2
+b2 <- readRDS("Results/MTPA_bin2_Rst.Rdata")
+b2 <-  filter(b2,Area == "LIFG")
+b2$Bandwidth <- "Bandwidth = 2"
+b3 <- readRDS("Results/MTPA_bin3_Rst.Rdata")
+b3 <-  filter(b3,Area == "LIFG")   
+b3$Bandwidth <- "Bandwidth = 3"
+Bandwith2vs3 <- rbind(b2,b3)
+SupplementaryFigure2 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
+  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Bandwidth),alpha = 0.3)+
+  geom_line(aes(col = Bandwidth),size = 1.2)+
+  theme_bw()+
+  facet_grid(~Bandwidth)+
+  ylab("AUC")+
+  xlab("Time(s)")+
+  geom_hline(yintercept = 0.5, col = "red", size = 1)+
+  scale_colour_manual(values=c("chartreuse4", "firebrick"))+
+  scale_fill_manual(values=c("chartreuse4", "firebrick"))+
+  theme(legend.position = "none",strip.background  = element_blank(),plot.title = element_text(hjust = 0.2))
 
-# b2 <- readRDS("Results/AREA2_v2_Rcv100_ci90_Subterm_Default.Rdata")
-# b3 <- readRDS("Results/AREA2_v2_Rcv100_bin3_ci90_Subterm_Default.Rdata")
-# b2 <-  filter(b2,Area == "LIFG")
-# #dim(filter(dd1, AUC_l >0.5))
-# #subset(dd1,dd1$AUC_l >0.5)
-# #dim(filter(filter(dta3,Area == "LMTG"), AUC_l >0.5))
-# b2$Bandwidth <- "Bandwidth = 2"
-# b3 <-  filter(b3,Area == "LIFG")   
-# b3$Bandwidth <- "Bandwidth = 3"
-# 
-# dd <- rbind(b2,b3)
-# S2 <- ggplot(data = dd ,
-#                aes(x =Times, y = AUC))+
-#         geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Bandwidth),
-#                     alpha = 0.3)+
-#         geom_line(aes(col = Bandwidth),size = 1.2)+
-#         theme_bw()+
-#         facet_grid(~Bandwidth)+
-#         ylab("AUC")+
-#         xlab("Time(s)")+
-#         geom_hline(yintercept = 0.5, col = "red", size = 1)+
-#         #geom_hline(yintercept = 0.6, col = "red", size = 1, alpha = 0.5)+
-#         #geom_hline(yintercept = 0.7, col = "red", size = 1, alpha = 0.7)+
-#         #ggtitle("(A) RandomForest Method")+
-#         scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-#         scale_fill_manual(values=c("chartreuse4", "firebrick"))+
-#         theme(legend.position = "none",
-#               strip.background  = element_blank(),
-#               plot.title = element_text(hjust = 0.2))
+pdf(file = "Figures/SupplementaryFigure2.pdf", height = 4, width = 5)
+SupplementaryFigure2
+dev.off()
 
 ### Github README.Rmd Figure 1
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
