@@ -88,37 +88,40 @@ maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
 MUA_pt_1dtc_Rst <- as.data.frame(readRDS("Results/MUA_pt_1dtc_Rst.Rdata"))
 colnames(MUA_pt_1dtc_Rst) <- "MUA_pt_1dtc"
 maxstat_stcz <- quantile(MUA_pt_1dtc_Rst[,1], probs = 0.95)
-MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
 Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+  
   geom_histogram(alpha=.5, col = "#000000", fill = "#000000" )+
   geom_vline(aes(xintercept=maxstat_t),linetype="dashed",size=1)+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5))+
+  theme(plot.title = element_text(hjust = 0.5, size = 10))+
   ylab("Count")+
-  xlab("Maximum t")
+  xlab("Maximum t")+
+  ggtitle("Maximum t-statistic")
 
-Figure3_2_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
-  geom_line(size = 1.2)+
-  geom_hline(yintercept = maxstat_t,col = "red", size = 1)+
-  theme_bw()+
-  ylab("Absolute t value")+
-  xlab("Time(s)")+
-  ylim(0, 3.5)+
-  theme(plot.title = element_text(hjust = 0.5))
-Figure3_2 <- grid.arrange(Figure3_2_1,Figure3_2_2,ncol = 2, 
-                          top = textGrob("(B) Maximum t-statistic",
-                                         hjust = 2))
 Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
   geom_histogram(alpha=.7, col = "#000000", fill = "#000000" )+
   geom_vline(aes(xintercept=maxstat_stcz),linetype="dashed",size=1)+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0))+
+  theme(plot.title = element_text(hjust = 0.5, size = 10))+
   ylab("Count")+
   xlab("Maximum STCZ")+
-  ggtitle("(C) Maximum STCZ-statistic")
+  ggtitle("Maximum STCZ-statistic")
 
-Figure3_23 <- grid.arrange(Figure3_2,Figure3_3,ncol = 2,widths = c(8,4))
+# MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
+# Figure3_2_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
+#   geom_line(size = 1.2)+
+#   geom_hline(yintercept = maxstat_t,col = "red", size = 1)+
+#   theme_bw()+
+#   ylab("Absolute t value")+
+#   xlab("Time(s)")+
+#   ylim(0, 3.5)+
+#   theme(plot.title = element_text(hjust = 0.5))
+# Figure3_2 <- grid.arrange(Figure3_2_1,Figure3_2_2,ncol = 2, 
+#                           top = textGrob("(B) Maximum t-statistic",
+#                                          hjust = 2))
+
+Figure3_23 <- grid.arrange(Figure3_2_1,Figure3_3,ncol = 2,widths = c(5,5),
+                           top = textGrob("(B) Non-Parametric Permutation Frameworks",hjust = 1.7))
 Figure3 <- grid.arrange(Figure3_1,Figure3_23,ncol = 1, top = "Mass Univariate Analysis")
 
 pdf(file = "Figures/Figure3.pdf", height = 8, width = 12)
