@@ -55,12 +55,12 @@ for (j in 1:permnum){
   permrst[j,1] <- max(abs(rdrst[1,]), na.rm = T)
 }
 
-###  Save the result to results folder as "MUA_pt_ms_rst.Rdata"
-#saveRDS(permrst,"Results/MUA_pt_ms_rst.Rdata") # save the results
-#permrst <- readRDS("Results/MUA_pt_ms_rst.Rdata") # if want to read the results
+###  Save the result to results folder as "MUA_pt_ms_Rst.Rdata"
+# saveRDS(permrst,"Results/MUA_pt_ms_Rst.Rdata") # save the results
+# MUA_pt_ms_Rst <- readRDS("Results/MUA_pt_ms_Rst.Rdata") # if want to read the results
 
 ### Show the Maximum Statistic and the significance threshold
-maxstat_t <- quantile(permrst[,1], probs = 0.95)
+maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
 maxstat_t # 3.318795
 
 ### Results: Real data versus Significance threshold

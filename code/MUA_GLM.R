@@ -28,14 +28,14 @@ binwidth = 1
 rcvnum <- 100
 # Confidence interval
 ci <- c(0.05,0.95)
-# Set the uppr and lower bound 
+# Set the upper and lower bound 
 upperbound <- 167-binwidth+1
 lowerbound <- 1-binwidth+1
 # Store the results
 rst_LIFG <- matrix(NA,6,upperbound)
 rst_LMTG <- matrix(NA,6,upperbound)
 
-# LIFG : Start GLM model fitting
+### LIFG : Start GLM model fitting
 for (i in lowerbound:upperbound){
   # Print the progress
   if (i %in% c(seq(10,170,by =10))) {print(i)}
@@ -53,6 +53,7 @@ for (i in lowerbound:upperbound){
                family = binomial(link = "logit"))
     yhat_test <- predict(fit,newdata = LIFG[idc_test,],type = "response")
     yhat_test_class  <- ifelse(yhat_test < 0.5, 1, 0)
+    # Record the results of GLM fitting on Testing data
     ce_test <- mean(yhat_test_class!=LIFG[idc_test,]$Condition)
     auc_test <- pROC::auc(LIFG[idc_test,]$Condition,yhat_test)
     ceauc[2,k] <- ce_test
@@ -71,7 +72,7 @@ LIFGm <- as.data.frame(rst_LIFG)
 colnames(LIFGm) <- paste0("Time",1:length(1:upperbound))
 row.names(LIFGm) <- c("CE","AUC","CE_l","CE_u","AUC_l","AUC_u")
 
-# LMTG : Start GLM model fitting
+### LMTG : Start GLM model fitting
 for (i in lowerbound:upperbound){
   if (i %in% c(seq(10,170,by =10))) {print(i)}
   ceauc <- matrix(NA,4,rcvnum)

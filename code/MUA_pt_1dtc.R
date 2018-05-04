@@ -60,13 +60,13 @@ for (j in 1:permnum){
   }
 }
 
-### Save the result to results folder as "MUA_pt_ms_rst.Rdata"
-#saveRDS(permrst,"Results/MUA_pt_1dtc.Rdata")
-#permrst <- readRDS("Results/MUA_pt_1dtc.Rdata")
+### Save the result to results folder as "MUA_pt_1dtc_Rst.Rdata"
+# saveRDS(permrst,"Results/MUA_pt_1dtc_Rst.Rdata")
+# MUA_pt_1dtc_Rst <- readRDS("Results/MUA_pt_1dtc_Rst.Rdata")
 
 ### Show the max STCS and the significance threshold
-permrst[,1][is.na(permrst[,1])] <- 0
-maxstat_STCS <- quantile(permrst[,1], probs = 0.95)
+MUA_pt_1dtc_Rst[,1][is.na(MUA_pt_1dtc_Rst[,1])] <- 0
+maxstat_STCS <- quantile(MUA_pt_1dtc_Rst[,1], probs = 0.95)
 maxstat_STCS
 
 ### Results: Real data versus Significance threshold

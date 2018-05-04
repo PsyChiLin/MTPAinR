@@ -78,8 +78,8 @@ Figure3_1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method))+
   ylim(0, 3.5)+
   theme(legend.position = c(0.7,0.87),plot.title = element_text(hjust = 0.1))
 
-permrst <- readRDS("Results/MUA_pt_ms_rst.Rdata")
-maxstat_t <- quantile(permrst[,1], probs = 0.95)
+MUA_pt_ms_Rst <- readRDS("Results/MUA_pt_ms_Rst.Rdata")
+maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 Figure3_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
   geom_line(size = 1.2)+

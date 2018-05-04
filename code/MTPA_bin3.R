@@ -25,7 +25,7 @@ LMTG <- filter(dtaAll, Area == "LMTG")
 # Consider 2 time points at each testing
 binwidth = 2 
 # Cross validation times
-rcvnum <- 100
+rcvnum <- 3
 # Confidence interval
 ci <- c(0.05,0.95)
 # Set the upper and lower bound 
@@ -147,7 +147,7 @@ MTPA_bin2_Rst <- rbind(temp,temp2)
 rm(temp,temp2,rst_LMTG,rst_LIFG,LIFG,LMTG,LIFGm,LMTGm,ceauc)
 
 ### Save the result to results folder as "MTPA_bin2_Rst.Rdata"
-saveRDS(MTPA_bin2_Rst, "Results/MTPA_bin2_Rst.Rdata")
+# saveRDS(MTPA_bin2_Rst, "Results/MTPA_bin2_Rst.Rdata")
 # MTPA_bin2_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
 
 ### Plot the results quickly
@@ -160,4 +160,3 @@ ggplot(data = MTPA_bin2_Rst,aes(x =Times, y = AUC, col = Area))+
   geom_line(size = 1.2)+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area, col = Area),alpha = 0.3)+
   theme_bw()
-
