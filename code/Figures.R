@@ -97,147 +97,64 @@ pdf(file = "Figures/Figure3.pdf", height = 5, width = 7)
 grid.draw(Figure3)
 dev.off()
 
+### Figure 4
+MTPA_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
+MAU_Rst<- readRDS("Results/MAU_GLM_Rst.Rdata")
+MTPA_Rst <-  filter(MTPA_Rst, Area == "LIFG")
+MTPA_Rst$Method <- "Multi Time Points Analysis"
+MAU_Rst <-  filter(MAU_Rst,Area == "LIFG")
+MAU_Rst$Method <- "Mass Univariate Analysis"
+Rst <- rbind(MTPA_Rst,MAU_Rst)
+Figure4 <- ggplot(data = Rst ,aes(x =Times, y = AUC))+
+  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Method),
+              alpha = 0.3)+
+  geom_line(aes(col = Method),size = 1.2)+
+  theme_bw()+
+  facet_grid(~Method)+
+  ylab("AUC")+
+  xlab("Time(s)")+
+  geom_hline(yintercept = 0.5, col = "red", size = 1)+
+  scale_colour_manual(values=c("chartreuse4", "firebrick"))+
+  scale_fill_manual(values=c("chartreuse4", "firebrick"))+
+  theme(legend.position = "none",
+        strip.background  = element_blank(),
+        plot.title = element_text(hjust = 0.2))
 
-# dta3 <- readRDS("Results/AREA2_v2_Rcv100_ci90_Subterm_Default.Rdata")
-# plotdta <- readRDS("Results/Area2_v2_RCV100_bin1_GLM.Rdata")
-# dd1 <-  filter(dta3,Area == "LIFG")
-# #dim(filter(dd1, AUC_l >0.5))
-# #subset(dd1,dd1$AUC_l >0.5)
-# #dim(filter(filter(dta3,Area == "LMTG"), AUC_l >0.5))
-# dd1$Method <- "Multi Time Points Analysis"
-# dd2 <-  filter(plotdta,Area == "LIFG")   
-# dd2$Method <- "Mass Univariate Analysis"
-# dd <- rbind(dd1,dd2)
-# Fig5 <- ggplot(data = dd ,
-#                aes(x =Times, y = AUC))+
-#         geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Method),
-#                     alpha = 0.3)+
-#         geom_line(aes(col = Method),size = 1.2)+
-#         theme_bw()+
-#         facet_grid(~Method)+
-#         ylab("AUC")+
-#         xlab("Time(s)")+
-#         geom_hline(yintercept = 0.5, col = "red", size = 1)+
-#         #geom_hline(yintercept = 0.6, col = "red", size = 1, alpha = 0.5)+
-#         #geom_hline(yintercept = 0.7, col = "red", size = 1, alpha = 0.7)+
-#         #ggtitle("(A) RandomForest Method")+
-#         scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-#         scale_fill_manual(values=c("chartreuse4", "firebrick"))+
-#         theme(legend.position = "none",
-#               strip.background  = element_blank(),
-#               plot.title = element_text(hjust = 0.2))
-# 
-# 
-# #Fig5 <- ggplot(data = filter(dta3,Area == "LIFG"),
-# #       aes(x =Times, y = AUC))+
-# #        geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),
-# #                    alpha = 0.3)+
-# #        geom_line(size = 1.2)+
-# #        theme_bw()+
-# #        ylab("AUC")+
-# #        xlab("Time(s)")+
-# #        geom_hline(yintercept = 0.5, col = "red", size = 1)+
-# #        #geom_hline(yintercept = 0.6, col = "red", size = 1, alpha = 0.5)+
-# #        #geom_hline(yintercept = 0.7, col = "red", size = 1, alpha = 0.7)+
-# #        ggtitle("(A) RandomForest Method")+
-# #        theme(plot.title = element_text(hjust = 0.2))
-# 
-# 
-# #S1 <- ggplot(data = filter(plotdta, Area == "LIFG"),aes(x =Times, y = AUC))+
-# #        geom_line(size = 1.2)+
-# #        geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),
-# #                    alpha = 0.3)+
-# #        theme_bw()+
-# #        ggtitle("(B) Mass Univariate Analysis")+
-# #        theme(plot.title = element_text(hjust = 0.2),
-# #              legend.position = "none")+
-# #        geom_hline(yintercept = 0.5, col = "red", size = 1)+
-# #        ylab("AUC")+
-# #        xlab("Time(s)")
-# #Fig02 <- grid.arrange(Fig5,S1, ncol =2)
-# #plot(Fig02)
-# 
-# 
-# ### Two areas Comparison
-# dta3 <- readRDS("Results/AREA2_v2_Rcv100_ci90_Subterm_Default.Rdata")
-# 
-# mtg <- filter(dta3,Area == "LMTG") 
-# mtgt1 <-  filter(dta3, AUC_l > 0.5, Area == "LMTG") # 7.9094
-# ac <- filter(dta3, AUC_l > 0.5, Times < 7.9094, Area == "LIFG")
-# # 27 time points IFG faster than MTG
-# 
-# #Fig6 <- ggplot(data =dta3,aes(x =Times, y = AUC))+
-# #        geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area),
-# #                    alpha = 0.3)+
-# #        geom_line(size = 1.2, aes(col = Area))+
-# #        theme_bw()+
-# #        theme(strip.background = element_rect(color = "white", fill = "white", size = 0.2),
-# #              plot.title = element_text(hjust = 0.5),
-# #              legend.position = "right")+
-# #        #facet_grid(~Area)+
-# #        ylab("AUC")+
-# #        xlab("Time(s)")+
-# #        ggtitle("Areas Comparison")+
-# #        geom_hline(yintercept = 0.5, col = "red", size = 1)+
-# #        #geom_hline(yintercept = 0.6, col = "gold", size = 1, alpha = 0.5)+
-# #        #geom_hline(yintercept = 0.7, col = "gold", size = 1, alpha = 0.7)+
-# #        scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-# #       scale_fill_manual(values=c("chartreuse4", "firebrick"))
-# #        #scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-# #        #scale_fill_manual(values=c("chartreuse4", "firebrick"))
-# #Fig03 <- Fig6 
-# 
-# Fig7 <- ggplot(data =dta3,aes(x =Times, y = AUC))+
-#         geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area),
-#                     alpha = 0.3)+
-#         geom_line(size = 1.2, aes(col = Area))+
-#         theme_bw()+
-#         theme(strip.background = element_rect(color = "white", fill = "white", size = 0.2),
-#               plot.title = element_text(hjust = 0, size = 10),
-#               legend.position = "none")+
-#         facet_grid(~Area)+
-#         ylab("AUC")+
-#         xlab("Time(s)")+
-#         ggtitle("(A) AUC with Confidence Intervals")+
-#         geom_hline(yintercept = 0.5, col = "red", size = 1)+
-#         #geom_hline(yintercept = 0.6, col = "gold", size = 1, alpha = 0.5)+
-#         #geom_hline(yintercept = 0.7, col = "gold", size = 1, alpha = 0.7)+
-#         scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-#         scale_fill_manual(values=c("chartreuse4", "firebrick"))
-# 
-# #scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-# #scale_fill_manual(values=c("chartreuse4", "firebrick"))
-# Fig8 <- ggplot(data =dta3,aes(x =Times, y = AUC, fill = Area))+
-#         #geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area),
-#         #            alpha = 0.3)+
-#         geom_line(size = 1.2, aes(col = Area))+
-#         theme_bw()+
-#         ggtitle("(B) Average AUC Curves")+
-#         theme(plot.title = element_text(hjust = 0,size = 10))+
-#         #facet_grid(~Area)+
-#         ylab("AUC")+
-#         xlab("Time(s)")+
-#         scale_colour_manual(values=c("chartreuse4", "firebrick"))+
-#         scale_fill_manual(values=c("chartreuse4", "firebrick"))
-# Fig03_2 <- grid.arrange(Fig7,Fig8,ncol = 1, 
-#                       top = "Areas Comparison")
-# 
-# 
-# 
-# ### Supp 1 & 2
-# #plotdta <- readRDS("Results/Area2_RCV1000_bin1_GLM.Rdata")
-# #S1 <- ggplot(data = filter(plotdta, Area == "LIFG"),aes(x =Times, y = AUC))+
-# #        geom_line(size = 1.2)+
-# #        geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),
-# #                    alpha = 0.3)+
-# #        theme_bw()+
-# #        ggtitle(" Mass Univariate Analysis")+
-# #        theme(plot.title = element_text(hjust = 0.5),
-# #              legend.position = "none")+
-# #        geom_hline(yintercept = 0.5, col = "red", size = 1)+
-# #        ylab("AUC")+
-# #        xlab("Time(s)")
+pdf(file = "Figures/Figure4.pdf", height = 5, width = 7)
+Figure4
+dev.off()
 
+### Figure 5
+MTPA_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
+Figure5_1 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC))+
+  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area),alpha = 0.3)+
+  geom_line(size = 1.2, aes(col = Area))+
+  theme_bw()+
+  theme(strip.background = element_rect(color = "white", fill = "white", size = 0.2),
+        plot.title = element_text(hjust = 0, size = 10), legend.position = "none")+
+  facet_grid(~Area)+
+  ylab("AUC")+
+  xlab("Time(s)")+
+  ggtitle("(A) AUC with Confidence Intervals")+
+  geom_hline(yintercept = 0.5, col = "red", size = 1)+
+  scale_colour_manual(values=c("chartreuse4", "firebrick"))+
+  scale_fill_manual(values=c("chartreuse4", "firebrick"))
+
+Figure5_2 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC, fill = Area))+
+  geom_line(size = 1.2, aes(col = Area))+
+  theme_bw()+
+  ggtitle("(B) Average AUC Curves")+
+  theme(plot.title = element_text(hjust = 0,size = 10))+
+  ylab("AUC")+
+  xlab("Time(s)")+
+  scale_colour_manual(values=c("chartreuse4", "firebrick"))+
+  scale_fill_manual(values=c("chartreuse4", "firebrick"))
+
+Figure5 <- grid.arrange(Figure5_1, Figure5_2, ncol = 1, top = "Areas Comparison")
+
+pdf(file = "Figures/Figure5.pdf", height = 7, width = 7)
+grid.draw(Figure5)
+dev.off()
 
 ### Supplementary Figure 1
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")

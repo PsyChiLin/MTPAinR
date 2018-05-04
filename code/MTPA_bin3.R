@@ -23,7 +23,7 @@ LMTG <- filter(dtaAll, Area == "LMTG")
 ### Start MTPA
 ### Set parameters for MTPA
 # Consider 2 time points at each testing
-binwidth = 2 
+binwidth = 3
 # Cross validation times
 rcvnum <- 3
 # Confidence interval
@@ -69,9 +69,11 @@ for (i in lowerbound:upperbound){
 # Reorganize the results, avaerage all the time points that used to estimate the results
 LIFGm <- matrix(NA,6,167)
 LIFGm[,1] <- rst_LIFG[,1]
-LIFGm[,167] <- rst_LIFG[,166]
-for (i in 1:(upperbound-1)){
-  tpi <- i + 1
+LIFGm[,2] <- mean(rst_LIFG[,1:2])
+LIFGm[,166] <- mean(rst_LIFG[,164:165])
+LIFGm[,167] <- rst_LIFG[,165]
+for (i in 1:(upperbound-2)){
+  tpi <- i + 2
   LIFGm[1,tpi] <- mean(rst_LIFG[1,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
   LIFGm[2,tpi] <- mean(rst_LIFG[2,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
   LIFGm[3,tpi] <- mean(rst_LIFG[3,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
@@ -117,9 +119,11 @@ for (i in lowerbound:upperbound){
 # Reorganize the results, avaerage all the time points that used to estimate the results
 LMTGm <- matrix(NA,6,167)
 LMTGm[,1] <- rst_LMTG[,1]
-LMTGm[,167] <- rst_LMTG[,166]
-for (i in 1:(upperbound-1)){
-  tpi <- i + 1
+LMTGm[,2] <- mean(rst_LMTG[,1:2])
+LMTGm[,166] <- mean(rst_LMTG[,164:165])
+LMTGm[,167] <- rst_LMTG[,165]
+for (i in 1:(upperbound-2)){
+  tpi <- i + 2
   LMTGm[1,tpi] <- mean(rst_LMTG[1,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
   LMTGm[2,tpi] <- mean(rst_LMTG[2,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
   LMTGm[3,tpi] <- mean(rst_LMTG[3,c((i+lowerbound-1):(i+lowerbound-1+binwidth-1))])
@@ -142,21 +146,21 @@ temp2 <- as.data.frame(t(LMTGm))
 temp2$Area <- "LMTG"
 temp2$Times <- tp
 # Combine
-MTPA_bin2_Rst <- rbind(temp,temp2)
+MTPA_bin3_Rst <- rbind(temp,temp2)
 # Remove unused data
 rm(temp,temp2,rst_LMTG,rst_LIFG,LIFG,LMTG,LIFGm,LMTGm,ceauc)
 
-### Save the result to results folder as "MTPA_bin2_Rst.Rdata"
-# saveRDS(MTPA_bin2_Rst, "Results/MTPA_bin2_Rst.Rdata")
-# MTPA_bin2_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
+### Save the result to results folder as "MTPA_bin3_Rst.Rdata"
+# saveRDS(MTPA_bin3_Rst, "Results/MTPA_bin3_Rst.Rdata")
+# MTPA_bin3_Rst <- readRDS("Results/MTPA_bin3_Rst.Rdata")
 
 ### Plot the results quickly
-ggplot(data = MTPA_bin2_Rst,aes(x =Times, y = AUC, col = Area))+
+ggplot(data = MTPA_bin3_Rst,aes(x =Times, y = AUC, col = Area))+
   geom_line(size = 1.2)+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area, col = Area),alpha = 0.3)+
   theme_bw()+
   facet_grid(~Area)
-ggplot(data = MTPA_bin2_Rst,aes(x =Times, y = AUC, col = Area))+
+ggplot(data = MTPA_bin3_Rst,aes(x =Times, y = AUC, col = Area))+
   geom_line(size = 1.2)+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area, col = Area),alpha = 0.3)+
   theme_bw()

@@ -147,7 +147,7 @@ MTPA_bin2_Rst <- rbind(temp,temp2)
 rm(temp,temp2,rst_LMTG,rst_LIFG,LIFG,LMTG,LIFGm,LMTGm,ceauc)
 
 ### Save the result to results folder as "MTPA_bin2_Rst.Rdata"
-saveRDS(MTPA_bin2_Rst, "Results/MTPA_bin2_Rst.Rdata")
+# saveRDS(MTPA_bin2_Rst, "Results/MTPA_bin2_Rst.Rdata")
 # MTPA_bin2_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
 
 ### Plot the results quickly
