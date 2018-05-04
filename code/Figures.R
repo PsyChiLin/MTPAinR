@@ -205,5 +205,39 @@ dev.off()
 #         theme(legend.position = "none",
 #               strip.background  = element_blank(),
 #               plot.title = element_text(hjust = 0.2))
-# 
-# 
+
+### Github README.Rmd Figure 1
+MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
+MUA_Rst <- melt(MUA_Rst[,c(7,8,10)],id.vars = "Times")
+colnames(MUA_Rst) <- c("Times","Method","Adj_p")
+MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BONpv_log","BHpv_log"))
+MTPA_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
+
+GithubFigure1_1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method))+
+  geom_line(size = 1.2)+
+  geom_hline(yintercept = (-2*log10(0.05)), col = "red",size = 1)+
+  theme_bw()+
+  ylab("-2log10(pvalue)")+
+  xlab("Time(s)")+
+  scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)"),
+                      values=c("chartreuse4", "firebrick"))+
+  ggtitle("MUA")+
+  ylim(0, 3.5)+
+  theme(legend.position = c(0.7,0.87),plot.title = element_text(hjust = 0.5, size = 12))
+GithubFigure1_2 <- ggplot(data = filter(MTPA_Rst, Area == "LIFG"), aes(x =Times, y = AUC))+
+  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),fill = "firebrick",alpha = 0.3)+
+  geom_line(size = 1.2, col = "firebrick")+
+  theme_bw()+
+  theme(strip.background = element_rect(color = "white", fill = "white", size = 0.2),
+        plot.title = element_text(hjust = 0.5, size = 12), legend.position = "none")+
+  ylab("AUC")+
+  xlab("Time(s)")+
+  ggtitle("MTPA")+
+  geom_hline(yintercept = 0.5, col = "red", size = 1)
+
+
+GithubFigure1 <- grid.arrange(GithubFigure1_1, GithubFigure1_2, ncol = 2)
+
+pdf(file = "Figures/GithubFigure1.pdf", height = 5, width = 7)
+grid.draw(GithubFigure1)
+dev.off()
