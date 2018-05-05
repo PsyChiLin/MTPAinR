@@ -226,18 +226,18 @@ GithubFigure1_1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method
   xlab("Time(s)")+
   scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)"),
                       values=c("chartreuse4", "firebrick"))+
-  ggtitle("MUA")+
+  ggtitle("Mass Univariate Analysis")+
   ylim(0, 3.5)+
   theme(legend.position = c(0.7,0.87),plot.title = element_text(hjust = 0.5, size = 12))
 GithubFigure1_2 <- ggplot(data = filter(MTPA_Rst, Area == "LIFG"), aes(x =Times, y = AUC))+
-  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),fill = "firebrick",alpha = 0.3)+
-  geom_line(size = 1.2, col = "firebrick")+
+  geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u),fill = "dodgerblue3",alpha = 0.3)+
+  geom_line(size = 1.2, col = "dodgerblue3")+
   theme_bw()+
   theme(strip.background = element_rect(color = "white", fill = "white", size = 0.2),
         plot.title = element_text(hjust = 0.5, size = 12), legend.position = "none")+
   ylab("AUC")+
   xlab("Time(s)")+
-  ggtitle("MTPA")+
+  ggtitle("Multi-Time Points Analysis")+
   geom_hline(yintercept = 0.5, col = "red", size = 1)
 
 
