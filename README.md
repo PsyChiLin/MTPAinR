@@ -19,30 +19,31 @@ Therefore, we proposed a novel perspective, **Multi-Time Points Analysis
 (MTPA)**, to discriminate signal differences between conditions by
 combining temporal information from multiple time points in fNIRS.
 
-The **MTPA** adopted the random forest algorithm from statistical
-learning domain, followed by a series of cross validation procedures,
-providing reasonable power for detecting significant time points and
-ensuring the generalizability.
+The MTPA adopted the random forest algorithm from statistical learning
+domain, followed by a series of cross validation procedures, providing
+reasonable power for detecting significant time points and ensuring the
+generalizability.
 
-Using an fNIRS dataset, the proposed **MTPA** would outperform the MUA.
+Using an real fNIRS dataset, the proposed MTPA would outperform the MUA.
 As we seen in the following figure, the MUA with either false discovery
 rate correction or bonferroni correction could not detect any
-significant time points. The proposed **MTPA** can successfully detect
-more time points showing significant differences between experimental
+significant time points. The proposed MTPA can successfully detect more
+time points showing significant differences between experimental
 conditions.
 
-Furthermore, the **MTPA** could also easily make a comparison between
+Furthermore, the MTPA could also easily make a comparison between
 different areas, leading to a novel viewpoint of fNIRS time course
 analysis and providing additional theoretical implications in future
 fNIRS studies.
 
-The present repository contains the `R` code to (1) use **MTPA** (2) and
-make comparision with MUA. Also, code to generate some example figures
-are provided.
+The present repository contains (1) an real fNIRS dataset as an example,
+(2) the code that demonstrated how to use MTPA in the basic `R`
+environment, (3) the code that made a comparision with MUA, and (4) the
+code that generated some figures.
 
 Have fun with **MTPA** \!
 
-![GithubFigure1](Figures/GithubFigure1.png)
+![GithubFigure1](Figures/GithubFigure1.tiff)
 
 ## Dependencies
 
@@ -131,15 +132,14 @@ Have fun with **MTPA** \!
 
 ## Authors
 
-[**Chi-Lin Yu**](https://github.com/PsyChiLin) : Department of
-Psychology, National Taiwan University, Taiwan<br /> [**Hsin-Chin
-Chen**](https://sites.google.com/site/hsinchinchenx/): Department of
-Psychology, National Chung Cheng University<br /> [**Zih-Yun
-Yang**](https://sites.google.com/site/lcnlccu/people/graduate-students):
-Department of Psychology, National Chung Cheng University<br />
-[**Tai-Li
-Chou**](http://www.psy.ntu.edu.tw/index.php/members/faculty/fulltime-faculty/314-chou-tai-li)
+[Chi-Lin Yu](https://github.com/PsyChiLin) : Department of Psychology,
+National Taiwan University, Taiwan<br /> [Hsin-Chin
+Chen](https://sites.google.com/site/hsinchinchenx/): Department of
+Psychology, National Chung Cheng University<br /> [Zih-Yun
+Yang](https://sites.google.com/site/lcnlccu/people/graduate-students):
+Department of Psychology, National Chung Cheng University<br /> [Tai-Li
+Chou](http://www.psy.ntu.edu.tw/index.php/members/faculty/fulltime-faculty/314-chou-tai-li)
 : Department of Psychology, National Taiwan University, Taiwan<br />
 
 If you have a question, comment, concern or code contribution about
-**MTPA**, please send us an email at <psychilinyu@gmail.com>.
+MTPA, please send us an email at <psychilinyu@gmail.com>.

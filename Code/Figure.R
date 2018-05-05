@@ -243,6 +243,6 @@ GithubFigure1_2 <- ggplot(data = filter(MTPA_Rst, Area == "LIFG"), aes(x =Times,
 
 GithubFigure1 <- grid.arrange(GithubFigure1_1, GithubFigure1_2, ncol = 2)
 
-pdf(file = "Figures/GithubFigure1.pdf", height = 5, width = 7)
+tiff(file = "Figures/GithubFigure1.tiff", height = 5, width = 7, units="in", res = 300,compression = "lzw")
 grid.draw(GithubFigure1)
 dev.off()
