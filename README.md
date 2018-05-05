@@ -43,7 +43,7 @@ code that generated some figures.
 
 Have fun with **MTPA** \!
 
-![GithubFigure1](Figures/GithubFigure1.tiff)
+![GithubFigure1](Figures/GithubFigure1.png)
 
 ## Dependencies
 
