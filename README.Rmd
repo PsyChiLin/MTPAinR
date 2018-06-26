@@ -78,8 +78,8 @@ dorsomedial prefrontal cortex: a near-infrared spectroscopy study. Neuroreport, 
 ## Authors
 
 [Chi-Lin Yu](https://github.com/PsyChiLin) : Department of Psychology, National Taiwan University, Taiwan<br />
-[Hsin-Chin Chen](https://sites.google.com/site/hsinchinchenx/): Department of Psychology, National Chung Cheng University<br />
-[Zih-Yun Yang](https://sites.google.com/site/lcnlccu/people/graduate-students): Department of Psychology, National Chung Cheng University<br />
+[Hsin-Chin Chen](https://sites.google.com/site/hsinchinchenx/): Department of Psychology, National Chung Cheng University, Taiwan<br />
+[Zih-Yun Yang](https://sites.google.com/site/lcnlccu/people/graduate-students): Department of Psychology, National Chung Cheng University, Taiwan<br />
 [Tai-Li Chou](http://www.psy.ntu.edu.tw/index.php/members/faculty/fulltime-faculty/314-chou-tai-li) : Department of Psychology, National Taiwan University, Taiwan<br />
 
 If you have a question, comment, concern or code contribution about MTPA, please send us an email at psychilinyu@gmail.com.
