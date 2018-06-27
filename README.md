@@ -47,14 +47,15 @@ Have fun with **MTPA** \!
 
 ## Folders
 
-  - `Code`: The code used to perform MTPA (2 variations and 1
-    demostration to compare 2 varaitions) and MUA (4 correction methods,
-    including GLM, corrected p-value, maximum statistics, and 1-D
-    temporal clustering).
+  - `Code`: The code used to perform the MTPA, including 2 variations
+    (different bandwidth) and 1 demostration to compare 2 varaitions,
+    and the MUA with 4 correction methods, including GLM, corrected
+    p-value (padjust), maximum statistics (pt\_ms), and 1-D temporal
+    clustering (pt\_1dtc).
   - `Data`: The example dataset in csv and Rdata format.
   - `Figures`: Some figures to demostrate the data explorations, the use
-    of MUA, and the functionality of MTPA.
-  - `Functions`: Some supporting functions for plotting.
+    of MUA, and the functionalities of MTPA.
+  - `Functions`: Some supporting functions for generating figures.
   - `Results`: Some pre-stored results to support quick plottings.
 
 ## Dependencies
