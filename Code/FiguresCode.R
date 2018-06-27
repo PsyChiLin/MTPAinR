@@ -96,7 +96,7 @@ Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+
   theme(plot.title = element_text(hjust = 0.5, size = 10))+
   ylab("Count")+
   xlab("Maximum t")+
-  ggtitle("Maximum t-statistic")
+  ggtitle("Maximum t-statistics")
 
 Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
   geom_histogram(alpha=.7, col = "#000000", fill = "#000000" )+
@@ -105,7 +105,7 @@ Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+
   theme(plot.title = element_text(hjust = 0.5, size = 10))+
   ylab("Count")+
   xlab("Maximum STCZ")+
-  ggtitle("Maximum STCZ-statistic")
+  ggtitle("Maximum STCZ-statistics")
 
 # MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 # Figure3_2_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+

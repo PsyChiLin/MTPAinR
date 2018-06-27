@@ -24,7 +24,7 @@ Therefore, we proposed a novel perspective, **Multi-Time Points Analysis (MTPA)*
 
 The MTPA adopted the random forest algorithm from statistical learning domain, followed by a series of cross validation procedures, providing reasonable power for detecting significant time points and ensuring the generalizability. 
 
-Using an real fNIRS dataset, the proposed MTPA would outperform the MUA. As we seen in the following figure, the MUA with either false discovery rate correction or bonferroni correction could not detect any significant time points. The proposed MTPA can successfully detect more time points showing significant differences between experimental conditions.
+Using an real fNIRS dataset, the proposed MTPA would outperform the MUA. As we seen in the following figure, the MUA with either false discovery rate correction or bonferroni correction could not detect any significant time points. Even we applied two non-parametric permutation frameworks, including the maximum *t*-statistics and the 1-D temporal clustering methods, the MUA still could not show any finding. In contrast, the proposed MTPA can successfully detect more time points showing significant differences between experimental conditions.
 
 Furthermore, the MTPA could also easily make a comparison between different areas, leading to a novel viewpoint of fNIRS time course analysis and providing additional theoretical implications in future fNIRS studies.
 
@@ -34,7 +34,7 @@ Have fun with **MTPA** !
 
 ![GithubFigure1](Figures/GithubFigure1.png)
 
-## Folders
+## Structure of the Repository
 
 - **`Code`**: The code that were used to perform the MTPA and the mass univariate analysis are provided in this folder.
     - **FiguresCode.R**: The code to generate figures
