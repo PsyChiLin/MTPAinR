@@ -43,7 +43,14 @@ code that generated some figures.
 
 Have fun with **MTPA** \!
 
-![GithubFigure1](Figures/GithubFigure1.png)
+![GithubFigure1](Figures/GithubFigure1.png) \#\# Folders - Code: The
+code used to perform MTPA (2 variations and 1 demostration to compare 2
+varaitions) and MUA (4 correction methods, including GLM, corrected
+p-value, maximum statistics, and 1-D temporal clustering). - Data: The
+example dataset in csv and Rdata format. - Figures: Some figures to
+demostrate the data explorations, the use of MUA, and the functionality
+of MTPA. - Functions: Some supporting functions for plotting. - Results:
+Some pre-stored results to support quick plottings.
 
 ## Dependencies
 
@@ -135,9 +142,10 @@ Have fun with **MTPA** \!
 [Chi-Lin Yu](https://github.com/PsyChiLin) : Department of Psychology,
 National Taiwan University, Taiwan<br /> [Hsin-Chin
 Chen](https://sites.google.com/site/hsinchinchenx/): Department of
-Psychology, National Chung Cheng University<br /> [Zih-Yun
+Psychology, National Chung Cheng University, Taiwan<br /> [Zih-Yun
 Yang](https://sites.google.com/site/lcnlccu/people/graduate-students):
-Department of Psychology, National Chung Cheng University<br /> [Tai-Li
+Department of Psychology, National Chung Cheng University, Taiwan<br />
+[Tai-Li
 Chou](http://www.psy.ntu.edu.tw/index.php/members/faculty/fulltime-faculty/314-chou-tai-li)
 : Department of Psychology, National Taiwan University, Taiwan<br />
 
