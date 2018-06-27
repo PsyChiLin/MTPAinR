@@ -62,8 +62,8 @@ Have fun with **MTPA** \!
       - **MUA\_pt\_ms.R**: The code to perform the mass univariate
         analysis with maximum *t*-statistics in the non-parametric
         permutation framework
-      - MUA\_pt\_1dtc.R: The code to the mass univariate analysis with
-        1-D temporal clustering in the non-parametric permutation
+      - **MUA\_pt\_1dtc.R**: The code to the mass univariate analysis
+        with 1-D temporal clustering in the non-parametric permutation
         framework
       - **MUA\_GLM.R**: The code to perform the mass univariate analysis
         in a general linear model (GLM) framework

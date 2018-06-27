@@ -43,7 +43,7 @@ Have fun with **MTPA** !
     - **MTPA_BandwidthComparison.R**: The code to compare the results of MTPA for two bandwidth values (2 & 3)
     -	**MUA_padjust.R**: The code to perform the mass univariate analysis with 3 types of p-value corrections
     -	**MUA_pt_ms.R**: The code to perform the mass univariate analysis with maximum *t*-statistics in the non-parametric permutation framework
-    -	MUA_pt_1dtc.R: The code to the mass univariate analysis with 1-D temporal clustering in the non-parametric permutation framework
+    -	**MUA_pt_1dtc.R**: The code to the mass univariate analysis with 1-D temporal clustering in the non-parametric permutation framework
     -	**MUA_GLM.R**: The code to perform the mass univariate analysis in a general linear model (GLM) framework
 -	**`Data`**: The fNIRS dataset that was used in the present study are available in this folder.
     -	**NIRSdata_LTFGLMTG.csv**: The dataset in CSV format
