@@ -54,7 +54,7 @@ Have fun with **MTPA** \!
       - **FiguresCode.R**: The code to generate figures
       - **MTPA.R**: The code to perform the MTPA
       - **MTPA\_B3.R**: The code to perform the MTPA with a different
-        bandwidth value (bandwidth = 3)
+        bandwidth value (bandwidth value = 3)
       - **MTPA\_BandwidthComparison.R**: The code to compare the results
         of MTPA for two bandwidth values (2 & 3)
       - **MUA\_padjust.R**: The code to perform the mass univariate

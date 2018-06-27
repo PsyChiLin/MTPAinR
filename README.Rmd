@@ -39,7 +39,7 @@ Have fun with **MTPA** !
 - **`Code`**: The code that were used to perform the MTPA and the mass univariate analysis are provided in this folder.
     - **FiguresCode.R**: The code to generate figures
     - **MTPA.R**: The code to perform the MTPA
-    - **MTPA_B3.R**: The code to perform the MTPA with a different bandwidth value (bandwidth = 3)
+    - **MTPA_B3.R**: The code to perform the MTPA with a different bandwidth value (bandwidth value = 3)
     - **MTPA_BandwidthComparison.R**: The code to compare the results of MTPA for two bandwidth values (2 & 3)
     -	**MUA_padjust.R**: The code to perform the mass univariate analysis with 3 types of p-value corrections
     -	**MUA_pt_ms.R**: The code to perform the mass univariate analysis with maximum *t*-statistics in the non-parametric permutation framework
