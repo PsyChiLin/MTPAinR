@@ -94,31 +94,20 @@ Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+
   geom_vline(aes(xintercept=maxstat_t),linetype="dashed",size=1)+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5, size = 10))+
+  annotate("text", x = 3.5, y = 1550, label = "p", hjust = 0,fontface = "italic")+
+  annotate("text", x = 3.75, y= 1550, hjust = 0, label= "= 0.05")+
   ylab("Count")+
-  xlab("Maximum t")+
-  ggtitle("Maximum t-statistics")
+  xlab("Maximum t-statistics")
 
 Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
   geom_histogram(alpha=.7, col = "#000000", fill = "#000000" )+
   geom_vline(aes(xintercept=maxstat_stcz),linetype="dashed",size=1)+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5, size = 10))+
+  annotate("text", x = 40, y = 6200, label = "p", hjust = 0,fontface = "italic")+
+  annotate("text", x = 45, y= 6200, hjust = 0, label= "= 0.05")+
   ylab("Count")+
-  xlab("Maximum STCZ")+
-  ggtitle("Maximum STCZ-statistics")
-
-# MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
-# Figure3_2_2 <- ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+
-#   geom_line(size = 1.2)+
-#   geom_hline(yintercept = maxstat_t,col = "red", size = 1)+
-#   theme_bw()+
-#   ylab("Absolute t value")+
-#   xlab("Time(s)")+
-#   ylim(0, 3.5)+
-#   theme(plot.title = element_text(hjust = 0.5))
-# Figure3_2 <- grid.arrange(Figure3_2_1,Figure3_2_2,ncol = 2, 
-#                           top = textGrob("(B) Maximum t-statistic",
-#                                          hjust = 2))
+  xlab("Maximum STCZ-statistics")
 
 Figure3_23 <- grid.arrange(Figure3_2_1,Figure3_3,ncol = 2,widths = c(5,5),
                            top = textGrob("(B) Non-Parametric Permutation Frameworks",hjust = 1.7))

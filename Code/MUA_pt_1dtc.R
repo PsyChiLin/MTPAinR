@@ -78,7 +78,8 @@ MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 cluster <- rle(MUA_Rst$pvalue < 0.025) # two tails
 max(cluster$lengths[cluster$values == TRUE]) > maxstat_STCS
 
-
+# The biggest cluster in the real dataset is 23 (smaller than maxstat_STCS, 37)  
+# max(cluster$lengths[cluster$values == TRUE])
 
 
 

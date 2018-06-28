@@ -71,6 +71,9 @@ MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 # Is there any significant time point ?
 MUA_Rst$tvalue[abs(MUA_Rst$tvalue) > maxstat_t]
 
+# The biggest t value in the real dataset is 3.025338 (smaller than maxstat_t, 3.318795)  
+# max(abs(MUA_Rst$tvalue)) 
+
 ### Plot the results quickly
 ## Note : the absolute t value of real data is used.
 ggplot(data = MUA_Rst, aes(x = Times, y = abs(tvalue)))+

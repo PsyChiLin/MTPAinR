@@ -20,7 +20,7 @@ In the data analysis of functional near-infrared spectroscopy (fNIRS), linear mo
 
 However, some statistical issues, such as assumptions of linearity, auto-correlation and multiple comparison problems, influence the statistical inferences when using the MUA on fNIRS time course data. 
 
-Therefore, we proposed a novel perspective, **Multi-Time Points Analysis (MTPA)**, to discriminate signal differences between conditions by combining temporal information from multiple time points in fNIRS. 
+Therefore, we proposed a novel perspective, **Multi-Time Points Analysis (MTPA)**, to discriminate signal differences between conditions by combining temporal information from multiple time points in fNIRS.
 
 The MTPA adopted the random forest algorithm from statistical learning domain, followed by a series of cross validation procedures, providing reasonable power for detecting significant time points and ensuring the generalizability. 
 
@@ -28,7 +28,7 @@ Using an real fNIRS dataset, the proposed MTPA would outperform the MUA. As we s
 
 Furthermore, the MTPA could also easily make a comparison between different areas, leading to a novel viewpoint of fNIRS time course analysis and providing additional theoretical implications in future fNIRS studies.
 
-The present repository contains (1) an real fNIRS dataset as an example, (2) the code that demonstrated how to use MTPA in the basic `R` environment, (3) the code that made a comparision with MUA, and (4) the code that generated some figures.
+The present repository contains (1) an real fNIRS dataset as an example, (2) the code that demonstrated how to use MTPA in the basic `R` environment, (3) the code of doing the MUA for comparison, and (4) the code to generate figures.
 
 Have fun with **MTPA** !
 
