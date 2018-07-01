@@ -75,10 +75,11 @@ maxstat_STCS
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 
 # Is there any significant time point ?
-cluster <- rle(MUA_Rst$pvalue < 0.025) # two tails
+cluster <- rle(MUA_Rst$pvalue < 0.05) # or 0.025 in a setting of two tails
 max(cluster$lengths[cluster$values == TRUE]) > maxstat_STCS
 
-# The biggest cluster in the real dataset is 23 (smaller than maxstat_STCS, 37)  
+# The biggest cluster in the real dataset is 23(alpha = 0.025: better control in a two tails setting) or 37 (alpha = 0.05: less control in a one tail setting).
+# Both not greater than maxstat_STCS, 37.
 # max(cluster$lengths[cluster$values == TRUE])
 
 

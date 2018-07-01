@@ -61,8 +61,8 @@ for (j in 1:permnum){
 MUA_pt_ms_Rst <- readRDS("Results/MUA_pt_ms_Rst.Rdata")
 
 ### Show the Maximum Statistic and the significance threshold
-maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
-maxstat_t # 3.318795
+maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95) # or 0.975 in two tails
+maxstat_t
 
 ### Results: Real data versus Significance threshold
 # Read MUA results
@@ -71,7 +71,7 @@ MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
 # Is there any significant time point ?
 MUA_Rst$tvalue[abs(MUA_Rst$tvalue) > maxstat_t]
 
-# The biggest t value in the real dataset is 3.025338 (smaller than maxstat_t, 3.318795)  
+# The biggest t value in the real dataset is 3.025338 (smaller than maxstat_t, 3.72)  
 # max(abs(MUA_Rst$tvalue)) 
 
 ### Plot the results quickly
