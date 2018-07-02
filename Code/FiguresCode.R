@@ -178,7 +178,30 @@ pdf(file = "Figures/Figure6.pdf", height = 7, width = 7)
 grid.draw(Figure6)
 dev.off()
 
+
 ### Supplementary Figure 1
+MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
+MUA_Rst <- melt(MUA_Rst[,c(9,10)],id.vars = "Times")
+colnames(MUA_Rst) <- c("Times","Method","Adj_p")
+MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BYpv_log"))
+SupplementaryFigure1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p))+
+  geom_line(size = 1.2)+
+  geom_hline(yintercept = (-2*log10(0.05)), col = "red",size = 1)+
+  theme_bw()+
+  ylab("-2log10(pvalue)")+
+  xlab("Time(s)")+
+  ggtitle("Mass Univariate Analysis: FDR(BY method)")+
+  ylim(0, 3.5)+
+  theme(legend.position = c(0.87,0.87),
+        strip.background  = element_blank(),
+        strip.text = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+
+pdf(file = "Figures/SupplementaryFigure1.pdf",height = 4, width = 5)
+SupplementaryFigure1 
+dev.off()
+
+### Supplementary Figure 2
 b2 <- readRDS("Results/MTPA_bin2_Rst.Rdata")
 b2 <-  filter(b2,Area == "LIFG")
 b2$Bandwidth <- "Bandwidth = 2"
@@ -186,7 +209,7 @@ b3 <- readRDS("Results/MTPA_bin3_Rst.Rdata")
 b3 <-  filter(b3,Area == "LIFG")   
 b3$Bandwidth <- "Bandwidth = 3"
 Bandwith2vs3 <- rbind(b2,b3)
-SupplementaryFigure1 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
+SupplementaryFigure2 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Bandwidth),alpha = 0.3)+
   geom_line(aes(col = Bandwidth),size = 1.2)+
   theme_bw()+
@@ -198,8 +221,8 @@ SupplementaryFigure1 <- ggplot(data = Bandwith2vs3 ,aes(x =Times, y = AUC))+
   scale_fill_manual(values=c("chartreuse4", "firebrick"))+
   theme(legend.position = "none",strip.background  = element_blank(),plot.title = element_text(hjust = 0.2))
 
-pdf(file = "Figures/SupplementaryFigure1.pdf", height = 4, width = 5)
-SupplementaryFigure1
+pdf(file = "Figures/SupplementaryFigure2.pdf", height = 4, width = 5)
+SupplementaryFigure2
 dev.off()
 
 ### Github README.Rmd Figure 1
