@@ -63,25 +63,30 @@ dev.off()
 
 ### Figure 3
 MUA_Rst <- readRDS("Results/MUA_Rst.Rdata")
-MUA_Rst <- melt(MUA_Rst[,c(7,8,9,10)],id.vars = "Times")
+MUA_Rst <- melt(MUA_Rst[,c(7,8,10)],id.vars = "Times")
 colnames(MUA_Rst) <- c("Times","Method","Adj_p")
-MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BONpv_log","BHpv_log","BYpv_log"))
-Figure3_1 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method))+
+MUA_Rst$Method <- factor(MUA_Rst$Method, levels = c("BONpv_log","BHpv_log"))
+Figure3 <- ggplot(data = MUA_Rst, aes(x = Times, y = Adj_p, col = Method))+
   geom_line(size = 1.2)+
-  facet_grid(~Method)+
+  #facet_grid(~Method)+
   geom_hline(yintercept = (-2*log10(0.05)), col = "red",size = 1)+
   theme_bw()+
   ylab("-2log10(pvalue)")+
   xlab("Time(s)")+
-  scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)","FDR(BY Method)"),
-                      values = c("chartreuse4", "firebrick", "gold"))+
-  ggtitle("(A) p-value Corrections")+
+  scale_colour_manual(labels = c("Bonferroni","FDR(BH Method)"),
+                      values = c("chartreuse4", "firebrick"))+
+  ggtitle("Mass Univariate Analysis: p-value Corrections")+
   ylim(0, 3.5)+
-  theme(#legend.position = c(0.9,0.87),
+  theme(legend.position = c(0.87,0.87),
         strip.background  = element_blank(),
         strip.text = element_blank(),
-        plot.title = element_text(hjust = 0))
+        plot.title = element_text(hjust = 0.5))
 
+pdf(file = "Figures/Figure3.pdf")
+grid.draw(Figure3)
+dev.off()
+
+### Figure 4
 MUA_pt_ms_Rst <- as.data.frame(readRDS("Results/MUA_pt_ms_Rst.Rdata"))
 colnames(MUA_pt_ms_Rst) <- "MUA_pt_ms"
 maxstat_t <- quantile(MUA_pt_ms_Rst[,1], probs = 0.95)
@@ -89,7 +94,7 @@ MUA_pt_1dtc_Rst <- as.data.frame(readRDS("Results/MUA_pt_1dtc_Rst.Rdata"))
 colnames(MUA_pt_1dtc_Rst) <- "MUA_pt_1dtc"
 maxstat_stcz <- quantile(MUA_pt_1dtc_Rst[,1], probs = 0.95)
 
-Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+  
+Figure4_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+  
   geom_histogram(alpha=.5, col = "#000000", fill = "#000000" )+
   geom_vline(aes(xintercept=maxstat_t),linetype="dashed",size=1)+
   theme_bw()+
@@ -99,7 +104,7 @@ Figure3_2_1 <- ggplot(data = MUA_pt_ms_Rst, aes(x = MUA_pt_ms))+
   ylab("Count")+
   xlab("Maximum t-statistics")
 
-Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
+Figure4_2 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+  
   geom_histogram(alpha=.7, col = "#000000", fill = "#000000" )+
   geom_vline(aes(xintercept=maxstat_stcz),linetype="dashed",size=1)+
   theme_bw()+
@@ -109,12 +114,9 @@ Figure3_3 <- ggplot(data = MUA_pt_1dtc_Rst , aes(x = MUA_pt_1dtc))+
   ylab("Count")+
   xlab("Maximum STCZ-statistics")
 
-Figure3_23 <- grid.arrange(Figure3_2_1,Figure3_3,ncol = 2,widths = c(5,5),
-                           top = textGrob("(B) Non-Parametric Permutation Frameworks",hjust = 1.7))
-Figure3 <- grid.arrange(Figure3_1,Figure3_23,ncol = 1, top = "Mass Univariate Analysis")
-
-pdf(file = "Figures/Figure3.pdf", height = 8, width = 12)
-grid.draw(Figure3)
+pdf(file = "Figures/Figure4.pdf", height = 4, width = 8)
+Figure4 <- grid.arrange(Figure4_1,Figure4_2,ncol = 2,widths = c(5,5),
+                           top = textGrob("Mass Univariate Analysis: Non-Parametric Permutation Frameworks",hjust = 0.5))
 dev.off()
 
 ### Figure 4
@@ -125,7 +127,7 @@ MTPA_Rst$Method <- "Multi Time Points Analysis"
 MAU_Rst <-  filter(MAU_Rst,Area == "LIFG")
 MAU_Rst$Method <- "Mass Univariate Analysis"
 Rst <- rbind(MTPA_Rst,MAU_Rst)
-Figure4 <- ggplot(data = Rst ,aes(x =Times, y = AUC))+
+Figure5 <- ggplot(data = Rst ,aes(x =Times, y = AUC))+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Method),
               alpha = 0.3)+
   geom_line(aes(col = Method),size = 1.2)+
@@ -140,13 +142,13 @@ Figure4 <- ggplot(data = Rst ,aes(x =Times, y = AUC))+
         strip.background  = element_blank(),
         plot.title = element_text(hjust = 0.2))
 
-pdf(file = "Figures/Figure4.pdf", height = 5, width = 7)
-Figure4
+pdf(file = "Figures/Figure5.pdf", height = 5, width = 7)
+Figure5
 dev.off()
 
-### Figure 5
+### Figure 6
 MTPA_Rst <- readRDS("Results/MTPA_bin2_Rst.Rdata")
-Figure5_1 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC))+
+Figure6_1 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC))+
   geom_ribbon(aes(ymax = AUC_l,ymin = AUC_u, fill = Area),alpha = 0.3)+
   geom_line(size = 1.2, aes(col = Area))+
   theme_bw()+
@@ -160,7 +162,7 @@ Figure5_1 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC))+
   scale_colour_manual(values=c("chartreuse4", "firebrick"))+
   scale_fill_manual(values=c("chartreuse4", "firebrick"))
 
-Figure5_2 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC, fill = Area))+
+Figure6_2 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC, fill = Area))+
   geom_line(size = 1.2, aes(col = Area))+
   theme_bw()+
   ggtitle("(B) Average AUC Curves")+
@@ -170,10 +172,10 @@ Figure5_2 <- ggplot(data = MTPA_Rst, aes(x =Times, y = AUC, fill = Area))+
   scale_colour_manual(values=c("chartreuse4", "firebrick"))+
   scale_fill_manual(values=c("chartreuse4", "firebrick"))
 
-Figure5 <- grid.arrange(Figure5_1, Figure5_2, ncol = 1, top = "Areas Comparison")
+Figure6 <- grid.arrange(Figure6_1, Figure6_2, ncol = 1, top = "Areas Comparison")
 
-pdf(file = "Figures/Figure5.pdf", height = 7, width = 7)
-grid.draw(Figure5)
+pdf(file = "Figures/Figure6.pdf", height = 7, width = 7)
+grid.draw(Figure6)
 dev.off()
 
 ### Supplementary Figure 1
